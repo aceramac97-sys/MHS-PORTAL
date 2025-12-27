@@ -22,10 +22,12 @@
             align-items: center;
             animation: fadeIn 1s ease-in; /* Fade-in animation */
         }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
         nav {
             position: fixed;
             top: 0;
@@ -37,6 +39,7 @@
             z-index: 1000;
             border-bottom: 3px solid #600000;
         }
+
         nav ul {
             list-style: none;
             margin: 0;
@@ -45,6 +48,7 @@
             justify-content: center;
             gap: 30px;
         }
+
         nav a {
             color: white;
             text-decoration: none;
@@ -57,13 +61,12 @@
             align-items: center;
             gap: 5px;
         }
+
         nav a:hover {
             background-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
-        @media (max-width: 768px) {
-            nav ul { flex-direction: column; gap: 15px; }
-        }
+
         h1 {
             color: #800000;
             text-align: center;
@@ -75,15 +78,17 @@
             font-size: 28px;
             font-weight: bold;
         }
+
         p {
             text-align: center;
             margin-bottom: 25px;
-            color: rgb(0, 0, 0)7f7;
+            color: #000000;
             background-color: rgba(255, 255, 255, 0.9);
             padding: 10px 15px;
             border-radius: 8px;
             font-size: 16px;
         }
+
         .controls {
             display: flex;
             flex-wrap: wrap;
@@ -91,6 +96,7 @@
             gap: 15px;
             margin-bottom: 25px;
         }
+
         button {
             padding: 12px 20px;
             border: none;
@@ -104,14 +110,17 @@
             gap: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .add-btn { background: linear-gradient(45deg, #800000, #a00000); color: white; }
-        .add-btn:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .save-btn { background: linear-gradient(45deg, #800000, #a00000); color: white; }
-        .save-btn:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .export-btn { background: linear-gradient(45deg, #800000, #a00000); color: white; }
-        .export-btn:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .delete-btn { background: linear-gradient(45deg, #800000, #a00000); color: white; }
-        .delete-btn:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+        .add-btn, .save-btn, .export-btn, .delete-btn {
+            background: linear-gradient(45deg, #800000, #a00000);
+            color: white;
+        }
+
+        .add-btn:hover, .save-btn:hover, .export-btn:hover, .delete-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
         table {
             width: 100%;
             max-width: 1100px;
@@ -122,61 +131,119 @@
             background-color: rgba(255, 255, 255, 0.95);
             animation: slideUp 0.8s ease-out;
         }
+
         @keyframes slideUp {
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
         th, td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
         th {
             background: linear-gradient(90deg, #800000, #a00000);
             color: white;
             font-weight: bold;
             font-size: 18px;
         }
+
         tbody tr:nth-child(even) {
             background-color: rgba(128, 0, 0, 0.05); /* Alternating row colors */
         }
+
         tbody tr:hover {
             background-color: rgba(128, 0, 0, 0.1);
             transition: background-color 0.3s;
         }
+
         td[contenteditable="true"] {
             background-color: #f9f9f9;
             cursor: text;
             border-radius: 4px;
         }
+
         td[contenteditable="true"]:focus {
             background-color: #fff;
             outline: 2px solid #800000;
             box-shadow: 0 0 5px rgba(128, 0, 0, 0.5);
         }
-        @media (max-width: 768px) {
-            table { font-size: 14px; }
-            th, td { padding: 10px; }
-            .controls { flex-direction: column; align-items: center; }
-            h1 { font-size: 24px; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 10px;
+            }
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .controls button {
+                width: 100%;
+                justify-content: center;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            h1 {
+                font-size: 24px;
+                padding: 10px 15px;
+            }
+            p {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 12px;
+            }
+            .controls button {
+                font-size: 14px;
+                padding: 10px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            p {
+                font-size: 12px;
+            }
+            nav ul {
+                gap: 8px;
+            }
         }
     </style>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a onclick="window.location.href='Home Page.html'"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="#courses"><i class="fas fa-book"></i> Courses</a></li>
-        <li><a href="#assignments"><i class="fas fa-tasks"></i> Assignments</a></li>
-        <li><a href="#grades"><i class="fas fa-chart-line"></i> Grades</a></li>
-        <li><a href="#messages"><i class="fas fa-envelope"></i> Messages</a></li>
-        <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
-        <li><a href="#" class="active"><i class="fas fa-boxes"></i> School Inventory</a></li> <!-- Active page -->
+            <li><a href="C:\Users\acera\Documents\Website ni Ace\Home Page.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#courses"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="#assignments"><i class="fas fa-tasks"></i> Assignments</a></li>
+            <li><a href="#grades"><i class="fas fa-chart-line"></i> Grades</a></li>
+            <li><a href="#messages"><i class="fas fa-envelope"></i> Messages</a></li>
+            <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="#" class="active"><i class="fas fa-boxes"></i> School Inventory</a></li>
         </ul>
     </nav>
     
     <h1><i class="fas fa-boxes"></i> School Inventory System</h1>
     <p>Click cells to edit. Data saves automatically. Manage with buttons below.</p>
+
     <div class="controls">
         <button class="add-btn" onclick="addRow()"><i class="fas fa-plus"></i> Add New Item</button>
         <button class="save-btn" onclick="saveData()"><i class="fas fa-save"></i> Save Data</button>
@@ -196,7 +263,6 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Sample row -->
             <tr>
                 <td contenteditable="true">Math Books</td>
                 <td contenteditable="true">50</td>
@@ -212,10 +278,7 @@
         const table = document.getElementById('inventoryTable');
         const tbody = table.getElementsByTagName('tbody')[0];
 
-        // Load data on page load
         window.onload = loadData;
-
-        // Auto-save on edit
         table.addEventListener('input', saveData);
 
         function addRow() {
@@ -228,13 +291,13 @@
                 <td contenteditable="true">Notes</td>
                 <td><button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i> Delete</button></td>
             `;
-            saveData(); // Auto-save after adding
+            saveData();
         }
 
         function deleteRow(button) {
             const row = button.parentNode.parentNode;
             row.parentNode.removeChild(row);
-            saveData(); // Auto-save after deleting
+            saveData();
         }
 
         function saveData() {
@@ -256,7 +319,7 @@
             const data = localStorage.getItem('inventoryData');
             if (data) {
                 const rows = JSON.parse(data);
-                tbody.innerHTML = ''; // Clear existing rows
+                tbody.innerHTML = '';
                 rows.forEach(row => {
                     const newRow = tbody.insertRow();
                     newRow.innerHTML = `
@@ -272,10 +335,9 @@
         }
 
         function exportToCSV() {
-            let csv = 'Item Name,Quantity,Category,Location,Notes\n'; // Headers exclude Actions
+            let csv = 'Item Name,Quantity,Category,Location,Notes\n';
             for (let i = 0; i < tbody.rows.length; i++) {
                 const cells = tbody.rows[i].cells;
-                // Only export cells 0-4 (skip Actions at index 5)
                 csv += `${cells[0].innerText},${cells[1].innerText},${cells[2].innerText},${cells[3].innerText},${cells[4].innerText}\n`;
             }
             const blob = new Blob([csv], { type: 'text/csv' });
@@ -288,5 +350,4 @@
         }
     </script>
 </body>
-
 </html>
