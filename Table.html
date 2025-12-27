@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Inventory System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Font Awesome for icons -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            padding-top: 100px; /* Space for fixed nav */
+            background-image: url('acess.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1s ease-in; /* Fade-in animation */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #800000, #a00000); /* Maroon gradient */
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            border-bottom: 3px solid #600000;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            nav ul { flex-direction: column; gap: 15px; }
+        }
+        h1 {
+            color: #800000;
+            text-align: center;
+            margin-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 28px;
+            font-weight: bold;
+        }
+        p {
+            text-align: center;
+            margin-bottom: 25px;
+            color: rgb(0, 0, 0)7f7;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .add-btn { background: linear-gradient(45deg, #800000, #a00000); color: white; }
+        .add-btn:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .save-btn { background: linear-gradient(45deg, #800000, #a00000); color: white; }
+        .save-btn:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .export-btn { background: linear-gradient(45deg, #800000, #a00000); color: white; }
+        .export-btn:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .delete-btn { background: linear-gradient(45deg, #800000, #a00000); color: white; }
+        .delete-btn:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        table {
+            width: 100%;
+            max-width: 1100px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.95);
+            animation: slideUp 0.8s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: linear-gradient(90deg, #800000, #a00000);
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        tbody tr:nth-child(even) {
+            background-color: rgba(128, 0, 0, 0.05); /* Alternating row colors */
+        }
+        tbody tr:hover {
+            background-color: rgba(128, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        td[contenteditable="true"] {
+            background-color: #f9f9f9;
+            cursor: text;
+            border-radius: 4px;
+        }
+        td[contenteditable="true"]:focus {
+            background-color: #fff;
+            outline: 2px solid #800000;
+            box-shadow: 0 0 5px rgba(128, 0, 0, 0.5);
+        }
+        @media (max-width: 768px) {
+            table { font-size: 14px; }
+            th, td { padding: 10px; }
+            .controls { flex-direction: column; align-items: center; }
+            h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="C:\Users\acera\Documents\Website ni Ace\Home Page.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#courses"><i class="fas fa-book"></i> Courses</a></li>
+        <li><a href="#assignments"><i class="fas fa-tasks"></i> Assignments</a></li>
+        <li><a href="#grades"><i class="fas fa-chart-line"></i> Grades</a></li>
+        <li><a href="#messages"><i class="fas fa-envelope"></i> Messages</a></li>
+        <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
+        <li><a href="#" class="active"><i class="fas fa-boxes"></i> School Inventory</a></li> <!-- Active page -->
+        </ul>
+    </nav>
+    
+    <h1><i class="fas fa-boxes"></i> School Inventory System</h1>
+    <p>Click cells to edit. Data saves automatically. Manage with buttons below.</p>
+    <div class="controls">
+        <button class="add-btn" onclick="addRow()"><i class="fas fa-plus"></i> Add New Item</button>
+        <button class="save-btn" onclick="saveData()"><i class="fas fa-save"></i> Save Data</button>
+        <button class="save-btn" onclick="loadData()"><i class="fas fa-upload"></i> Load Data</button>
+        <button class="export-btn" onclick="exportToCSV()"><i class="fas fa-download"></i> Export to CSV</button>
+    </div>
+    
+    <table id="inventoryTable">
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Sample row -->
+            <tr>
+                <td contenteditable="true">Math Books</td>
+                <td contenteditable="true">50</td>
+                <td contenteditable="true">Books</td>
+                <td contenteditable="true">Library Shelf A</td>
+                <td contenteditable="true">For Grade 10</td>
+                <td><button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i> Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const table = document.getElementById('inventoryTable');
+        const tbody = table.getElementsByTagName('tbody')[0];
+
+        // Load data on page load
+        window.onload = loadData;
+
+        // Auto-save on edit
+        table.addEventListener('input', saveData);
+
+        function addRow() {
+            const newRow = tbody.insertRow();
+            newRow.innerHTML = `
+                <td contenteditable="true">New Item</td>
+                <td contenteditable="true">0</td>
+                <td contenteditable="true">Category</td>
+                <td contenteditable="true">Location</td>
+                <td contenteditable="true">Notes</td>
+                <td><button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i> Delete</button></td>
+            `;
+            saveData(); // Auto-save after adding
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            saveData(); // Auto-save after deleting
+        }
+
+        function saveData() {
+            const rows = [];
+            for (let i = 0; i < tbody.rows.length; i++) {
+                const cells = tbody.rows[i].cells;
+                rows.push({
+                    name: cells[0].innerText,
+                    quantity: cells[1].innerText,
+                    category: cells[2].innerText,
+                    location: cells[3].innerText,
+                    notes: cells[4].innerText
+                });
+            }
+            localStorage.setItem('inventoryData', JSON.stringify(rows));
+        }
+
+        function loadData() {
+            const data = localStorage.getItem('inventoryData');
+            if (data) {
+                const rows = JSON.parse(data);
+                tbody.innerHTML = ''; // Clear existing rows
+                rows.forEach(row => {
+                    const newRow = tbody.insertRow();
+                    newRow.innerHTML = `
+                        <td contenteditable="true">${row.name}</td>
+                        <td contenteditable="true">${row.quantity}</td>
+                        <td contenteditable="true">${row.category}</td>
+                        <td contenteditable="true">${row.location}</td>
+                        <td contenteditable="true">${row.notes}</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)"><i class="fas fa-trash"></i> Delete</button></td>
+                    `;
+                });
+            }
+        }
+
+        function exportToCSV() {
+            let csv = 'Item Name,Quantity,Category,Location,Notes\n'; // Headers exclude Actions
+            for (let i = 0; i < tbody.rows.length; i++) {
+                const cells = tbody.rows[i].cells;
+                // Only export cells 0-4 (skip Actions at index 5)
+                csv += `${cells[0].innerText},${cells[1].innerText},${cells[2].innerText},${cells[3].innerText},${cells[4].innerText}\n`;
+            }
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'inventory.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
